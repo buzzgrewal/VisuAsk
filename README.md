@@ -26,14 +26,6 @@ Using advanced models like **Whisper**, **BLIP-2**, and **Flan-T5**, this app en
 
 VisuAsk brings conversational AI into the multimodal realm — ideal for accessibility, education, and more.
 
----
-
-## 📸 Demo Preview
-
-![demo-gif](demo/demo.gif)  
-*A user asks “What color is the car?” and hears the answer “The car is red.”*
-
-> 🎥 Watch the full demo [here](https://youtu.be/your-demo-link)
 
 ---
 
