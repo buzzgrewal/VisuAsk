@@ -194,7 +194,7 @@ See the `LICENSE` file for details.
 
 For feedback, questions, or collaboration requests:
 
-📧 your.email@example.com  
+📧 buzzgrewal@gmail.com  
 🔗 [LinkedIn](https://linkedin.com/in/abdullahgrewal)  
 🐙 [GitHub](https://github.com/buzzgrewal/VisuAsk)
 
