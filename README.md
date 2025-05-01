@@ -204,6 +204,4 @@ For feedback, questions, or collaboration requests:
 
 _If you like this project, ⭐️ it on GitHub and share it!_
 
-```
 
-Would you like this as a downloadable `.md` file or should I help with generating a sample `requirements.txt` next?
