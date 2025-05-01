@@ -1,0 +1,10 @@
+transformers
+git+https://github.com/openai/whisper.git
+torch
+accelerate
+gradio
+Pillow
+matplotlib
+bitsandbytes
+gtts
+torchvision

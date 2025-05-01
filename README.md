@@ -1,207 +1,58 @@
+# Ask-the-Image-Multimodal-QA-App
 
-# 🎤🖼️ VisuAsk: Speak to the Image. See What It Says.
+**Ask-the-Image** is a proof-of-concept multimodal mini-app that allows users to ask questions about an uploaded image using their **voice**, and receive answers in both **text and spoken audio**. This project showcases the integration of **speech recognition**, **vision-language models**, and **text-to-speech synthesis** in one lightweight app.
 
-## Introduction
+## Features
 
-Imagine asking a photo a question—just by speaking—and getting an instant, intelligent answer, both on-screen and read aloud. That’s exactly what **VisuAsk** does. Powered by the synergy of speech recognition, visual-language understanding, and text-to-speech synthesis, VisuAsk is a mini-app that brings conversational AI to life through multimodal interaction.
+- **Speech-to-Text**: Speak your question (max 10s), transcribed using OpenAI's Whisper-small ASR model.
+- **Image Question Answering**: Upload or capture an image. The app uses BLIP-2 + Flan-T5-small to understand and answer your question.
+- **Text-to-Speech**: The generated answer is rendered on-screen and spoken back using Google Text-to-Speech (gTTS).
+- **Modular Design**: Code is split into reusable modules – `asr.py`, `qa.py`, `tts.py`, and `app.py`.
 
-This blog post dives into how we built **VisuAsk**, a proof-of-concept app where users can ask questions about images using voice, and receive spoken answers. We'll walk you through the **architecture**, **technical components**, **implementation challenges**, and our **evaluation metrics**.
+## Tech Stack
 
----
+- [Gradio](https://gradio.app/) – UI Interface
+- [Whisper-small](https://github.com/openai/whisper) – ASR Model
+- [BLIP-2 + Flan-T5](https://huggingface.co/Salesforce/blip2-flan-t5-xl) – Vision-Language Model
+- [gTTS](https://pypi.org/project/gTTS/) – Text-to-Speech
+- Python, PyTorch, Hugging Face Transformers
 
-Sure! Here's a **long and detailed `README.md`** file for your **VisuAsk** project, written in Markdown and suitable for direct use on GitHub or other repositories.
+## How to Run Locally
 
----
-
-
-## 🧠 Overview
-
-**VisuAsk** is a proof-of-concept application that combines **speech-to-text**, **visual question answering (VQA)**, and **text-to-speech (TTS)** to create a natural, human-like interaction with images.
-
-Using advanced models like **Whisper**, **BLIP-2**, and **Flan-T5**, this app enables users to:
-- Record or upload voice input (up to 10 seconds).
-- Upload or capture an image.
-- Get intelligent answers to their spoken questions about the image.
-- Hear the answer spoken back using TTS.
-
-VisuAsk brings conversational AI into the multimodal realm — ideal for accessibility, education, and more.
-
-
----
-
-## 🏗️ Project Structure
-
-```
-VisuAsk/
-│
-├── app.py              # Main application (Streamlit/Flask)
-├── asr.py              # Speech-to-text (Whisper)
-├── qa.py               # Visual Question Answering (BLIP-2 + Flan-T5)
-├── tts.py              # Text-to-Speech (pyttsx3)
-│
-├── demo/               # Sample audio, images, demo video
-│
-├── requirements.txt    # Dependencies
-├── README.md           # You're reading it!
-```
-
----
-
-## 🚀 Features
-
-- 🎙️ **Voice Input:** Record or upload up to 10 seconds of spoken question.
-- 🖼️ **Image Upload:** Accepts `.jpg`, `.png`, `.jpeg` files.
-- 🔎 **VQA Engine:** Uses compact generative vision-language model (BLIP-2 + Flan-T5-small).
-- 🔊 **TTS Playback:** Speaks answers aloud using `pyttsx3`.
-- 🧠 **Edge Case Handling:** Supports simple linguistic variations (e.g., “How many cats?” vs. “What color is the cat?”).
-
----
-
-## 📦 Installation
-
-### 1. Clone the repository
+1. **Clone the repo**
 
 ```bash
-git clone https://github.com/buzzgrewal/VisuAsk.git
-cd VisuAsk
+git clone https://github.com/yourusername/ask-the-image.git
+cd ask-the-image
 ```
 
-### 2. Create a virtual environment (recommended)
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-### 3. Install dependencies
+2. **Install dependencies**
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## 📥 Requirements
-
-```
-transformers
-torch
-whisper
-pyttsx3
-streamlit
-Pillow
-soundfile
-sounddevice
-```
-
-> Note: Whisper may require FFmpeg. Install it via your package manager:
-```bash
-sudo apt install ffmpeg
-# or
-brew install ffmpeg
-```
-
----
-
-## 🧪 How to Run the App
-
-### 🟢 Streamlit Version (Recommended for Demo)
+3. **Run the app**
 
 ```bash
-streamlit run app.py
+python app.py
 ```
 
-This will open a local web app at `http://localhost:8501`.
+4. Open the link provided by Gradio in your browser.
 
-### ⚙️ Manual Component Test
+## 🗂️ File Structure
 
-If you'd like to run each module individually:
-
-#### 1. Test ASR
-```python
-from asr import transcribe
-print(transcribe("demo/question.wav"))
+```
+ask-the-image/
+├── app.py         # Gradio interface and orchestrator
+├── asr.py         # Audio transcription using Whisper
+├── qa.py          # Image QA using BLIP-2 + Flan-T5
+├── tts.py         # Text-to-Speech using gTTS
+└── requirements.txt
 ```
 
-#### 2. Test VQA
-```python
-from qa import answer_question
-print(answer_question("demo/image.jpg", "What is in the picture?"))
-```
+## 📷 Example Use Case
 
-#### 3. Test TTS
-```python
-from tts import speak
-speak("This is a test of the text-to-speech module.")
-```
-
----
-
-## 📈 Evaluation & Metrics
-
-| Component         | Metric        | Result           |
-|------------------|---------------|------------------|
-| ASR (Whisper)    | WER (10 utterances) | **7.3%** |
-| VQA (BLIP-2)     | Accuracy (10 QA pairs) | **80%** |
-| TTS (pyttsx3)    | Avg Latency    | **0.8s** |
-| End-to-End Latency | Average       | **~4.5s** |
-
----
-
-## 📉 Limitations
-
-- ASR errors in noisy environments
-- TTS output can sound robotic (consider Google TTS for production)
-- BLIP-2+Flan-T5-small sometimes generates generic or vague answers
-
----
-
-## 🛠️ Future Improvements
-
-- 🔁 Real-time camera integration (OpenCV or HTML5)
-- 🌍 Multilingual support using Whisper and translation APIs
-- 📱 Deploy as a mobile/web app (React Native, Flutter)
-- 🔊 Improve voice quality with advanced TTS (e.g., Coqui, ElevenLabs)
-
----
-
-## 🧑‍💻 Contributors
-
-- **Your Name** – Full-stack developer, ML pipeline integrator
-- **OpenAI Whisper** – Speech-to-text engine
-- **Salesforce BLIP-2** – VQA model backbone
-- **Google Flan-T5-small** – Text decoder
-- **Open-source community** – ❤️
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.  
-See the `LICENSE` file for details.
-
----
-
-## 📣 Contact
-
-For feedback, questions, or collaboration requests:
-
-📧 buzzgrewal@gmail.com  
-🔗 [LinkedIn](https://linkedin.com/in/abdullahgrewal)  
-🐙 [GitHub](https://github.com/buzzgrewal/VisuAsk)
-
----
-
-## 🌟 Acknowledgments
-
-- [OpenAI Whisper](https://github.com/openai/whisper)
-- [Hugging Face Transformers](https://huggingface.co/docs/transformers/index)
-- [Salesforce BLIP-2](https://huggingface.co/Salesforce/blip2-flan-t5-small)
-- [Streamlit](https://streamlit.io/)
-- [Pyttsx3](https://pyttsx3.readthedocs.io/)
-
----
-
-_If you like this project, ⭐️ it on GitHub and share it!_
-
-
+1. Upload an image (e.g., a traffic scene).
+2. Ask: "How many cars are in the image?" using your mic.
+3. The app will display and **speak** the answer.
